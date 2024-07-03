@@ -30,7 +30,7 @@ app.get("/tiktok/:id", (req, res) => {
     });
     // Event comments
     tiktokLiveConnection.on("chat", (data) => {
-      const message = `${data.uniqueId} (userId:${data.userId})writes:${data.comment}`;
+      const message = `${data.uniqueId}:${data.userId}:${data.comment}`;
       // Respond with the message
       res.write(`data: ${JSON.stringify(message)}\n\n`);
     });
