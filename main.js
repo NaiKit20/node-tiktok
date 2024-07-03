@@ -8,9 +8,10 @@ const port = 3000;
 app.use(cors({ origin: "*" }));
 
 app.get("/tiktok/:id", (req, res) => {
+  const sessionId = "e33cac6c9d1170b58093916262d873b0";
   // tiktok connect
   const tiktokUsername = req.params.id;
-  const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
+  const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername , {sessionId});
 
   tiktokLiveConnection
     .connect()
@@ -29,7 +30,7 @@ app.get("/tiktok/:id", (req, res) => {
     });
     // Event comments
     tiktokLiveConnection.on("chat", (data) => {
-      const message = `${data.uniqueId} (userId:${data.userId}) writes: ${data.comment}`;
+      const message = `${data.uniqueId} (userId:${data.userId})writes:${data.comment}`;
       // Respond with the message
       res.write(`data: ${JSON.stringify(message)}\n\n`);
     });
