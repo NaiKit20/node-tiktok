@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*" })); // run
 
 app.get("/tiktok/:id", (req, res) => {
   const sessionId = "e33cac6c9d1170b58093916262d873b0";
