@@ -2,14 +2,15 @@ const express = require("express");
 const { WebcastPushConnection } = require("tiktok-live-connector");
 const cors = require("cors");
 const https = require("https");
+const fs = require("fs");
 
 const app = express();
 const port = 3000;
 
-// Use SSL certificate and key
+// ใช้ใบรับรองจาก Certificate Authority (CA) และคีย์ส่วนตัว
 const sslOptions = {
-  key: fs.readFileSync("cert/cslab_it_msu_ac_th.bundle.crt"),
-  cert: fs.readFileSync("cert/private-key.key"),
+  key: fs.readFileSync("cert/private-key.key"), // ไฟล์คีย์ส่วนตัว
+  cert: fs.readFileSync("cert/cslab_it_msu_ac_th.bundle.crt"), // ไฟล์ใบรับรองแบบ bundle
 };
 
 app.use(cors({ origin: "*" })); // run
@@ -57,7 +58,7 @@ app.get("/tiktok/:id", (req, res) => {
     });
 });
 
-// Create HTTPS server with SSL options
+// สร้าง HTTPS server ด้วยใบรับรองและคีย์ส่วนตัว
 https.createServer(sslOptions, app).listen(port, () => {
   console.log(`HTTPS Server is running on port ${port}`);
 });
