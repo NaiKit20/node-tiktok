@@ -1,9 +1,16 @@
 const express = require("express");
 const { WebcastPushConnection } = require("tiktok-live-connector");
 const cors = require("cors");
+const https = require("https");
 
 const app = express();
 const port = 3000;
+
+// Use SSL certificate and key
+const sslOptions = {
+  key: fs.readFileSync("cert/cslab_it_msu_ac_th.bundle.crt"),
+  cert: fs.readFileSync("cert/private-key.key"),
+};
 
 app.use(cors({ origin: "*" })); // run
 
@@ -50,7 +57,7 @@ app.get("/tiktok/:id", (req, res) => {
     });
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Create HTTPS server with SSL options
+https.createServer(sslOptions, app).listen(port, () => {
+  console.log(`HTTPS Server is running on port ${port}`);
 });
