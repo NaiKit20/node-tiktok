@@ -7,6 +7,10 @@ const port = 3000;
 
 app.use(cors({ origin: "*" })); // run
 
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
+
 app.get("/tiktok/:id", (req, res) => {
   const sessionId = "e33cac6c9d1170b58093916262d873b0";
   // tiktok connect
