@@ -15,16 +15,16 @@ const sslOptions = {
 
 app.use(cors({ origin: "*" })); // run
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 app.get("/tiktok/:id", (req, res) => {
-  const sessionId = "e33cac6c9d1170b58093916262d873b0";
-  // tiktok connect
   const tiktokUsername = req.params.id;
   const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername, {
-    sessionId,
+    requestOptions: {
+      timeout: 30000
+    }
   });
 
   tiktokLiveConnection
@@ -36,7 +36,7 @@ app.get("/tiktok/:id", (req, res) => {
       res.writeHead(200, {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
+        Connection: "keep-alive",
       });
 
       // Event comments
