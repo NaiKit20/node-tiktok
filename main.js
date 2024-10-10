@@ -24,7 +24,8 @@ app.get("/tiktok/:id", (req, res) => {
   const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername, {
     requestOptions: {
       timeout: 30000
-    }
+    },
+    sessionId: "29050bf96cc37d8e1276428dab3a8878"
   });
 
   tiktokLiveConnection
